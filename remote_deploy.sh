@@ -11,7 +11,7 @@ then
   source ./green
   oci lb backend update --load-balancer-id ocid1.loadbalancer.oc1.phx.aaaaaaaarcshxid33k67rmj5bm6eqlkjqrgjdcwrdlfqap6pn3lfw7hsjutq \
     --backend-set-name th3servers --weight 1 --backup false --drain false --backend-name $host:$port --offline true
-  ssh opc@$host docker stop green
+  ssh opc@$host docker stop green && docker rm green
   echo "blue" > ./currentDeployment
   
 else
@@ -23,6 +23,6 @@ else
   source ./blue
   oci lb backend update --load-balancer-id ocid1.loadbalancer.oc1.phx.aaaaaaaarcshxid33k67rmj5bm6eqlkjqrgjdcwrdlfqap6pn3lfw7hsjutq \
     --backend-set-name th3servers --weight 1 --backup false --drain false --backend-name $host:$port --offline true
-  ssh opc@$host docker stop blue
+  ssh opc@$host docker stop blue && docker rm blue
   echo "green" > ./currentDeployment
 fi
